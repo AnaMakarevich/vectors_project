@@ -10,9 +10,15 @@ using namespace std;
 void print_vector(bool* A, int);
 void add_zheg(bool* A, bool* B, bool* C, int);
 void add_slc(bool* A, bool* m, int);
-
+bool* get_vector(int size);
 int main(int argc, const char * argv[]) {
+    int x;
+    cin >> x;
+    cout << x;
     // Testing the example given on page 14
+    bool* vector;
+    vector = get_vector(8);
+    print_vector(vector,8);
     bool A[8] = {1, 0, 1, 0, 0, 1, 0, 1};
     bool B[8] = {0, 1, 0, 0, 1, 0, 1, 1};
     bool m[8] = {1, 1, 1, 1 ,1, 1, 0, 0};
@@ -26,6 +32,18 @@ int main(int argc, const char * argv[]) {
     print_vector(&C[0],8);
     add_zheg(&B[0],&A[0],&D[0],8);
     print_vector(&D[0],8);
+}
+
+bool* get_vector(int size){
+    bool * vector;
+    int* keeper;
+    vector = new bool[size];
+    for (int i = 0; i < size; i++) {
+        
+        scanf("%d", keeper);
+        vector[i] = (bool)keeper;
+    }
+    return vector;
 }
 
 //add_scl - performs simple xor operation on vectors A and m and shifts all 1's to the left
