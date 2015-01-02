@@ -14,7 +14,7 @@ void add_zheg(bool* A, bool* B, bool* C, int);
 void add_slc(bool* A, bool* m, int);
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
+    // Testing the example given on page 14
     bool A[8] = {1, 0, 1, 0, 0, 1, 0, 1};
     bool B[8] = {0, 1, 0, 0, 1, 0, 1, 1};
     bool m[8] = {1, 1, 1, 1 ,1, 1, 0, 0};
@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
     print_vector(&D[0],8);
 }
 
+//add_scl - performs simple xor operation on vectors A and m and shifts all 1's to the left
 void add_slc(bool* A, bool* m, int size) {
     int count=0;
     for (int i = 0; i < size; i++){
@@ -42,12 +43,13 @@ void add_slc(bool* A, bool* m, int size) {
         A[i]=0;
     }
 }
-
+//add_zheg - pefroms bitwise and operation on vectors A and B and then performs xor operation on the resulting vector and B
 void add_zheg(bool* A, bool* B, bool* C, int size){
     for (int i = 0; i < size; i++) {
         C[i]=(A[i]&B[i])^B[i];
     }
 }
+// print_vector simply prints out the given array, it's used to check if the program works properly at each step
 void print_vector(bool* A, int size) {
     for (int i = 0; i < size; i++) {
         cout << A[i];
