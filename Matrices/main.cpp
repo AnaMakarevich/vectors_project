@@ -1,7 +1,7 @@
 //
 //  main.cpp
 //  Vectors Project
-//  Current status
+//  
 
 
 #include <iostream>
