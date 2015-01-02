@@ -1,7 +1,7 @@
 //
 //  main.cpp
-//  Matrices
-//
+//  Vectors Project
+//  Current status
 
 
 #include <iostream>
