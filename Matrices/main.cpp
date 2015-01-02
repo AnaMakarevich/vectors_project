@@ -11,13 +11,15 @@ void print_vector(bool* A, int);
 void add_zheg(bool* A, bool* B, bool* C, int);
 void add_slc(bool* A, bool* m, int);
 void get_vector(bool* vector, int size);
+void get_vector2(bool* vector, string thestring, int size);
 int main(int argc, const char * argv[]) {
-    // Testing the example given on page 14
     bool* vector;
     vector = new bool[8];
-    get_vector(vector,8);
+    //get_vector(vector,8);
+    get_vector2(vector, "10101010", 8);
     print_vector(vector,8);
     /*
+     Test case for the example given on page 14
     bool A[8] = {1, 0, 1, 0, 0, 1, 0, 1};
     bool B[8] = {0, 1, 0, 0, 1, 0, 1, 1};
     bool m[8] = {1, 1, 1, 1 ,1, 1, 0, 0};
@@ -34,11 +36,19 @@ int main(int argc, const char * argv[]) {
      */
 }
 
+//First version that allows the user to enter the vector manually
 void get_vector(bool* vector, int size){
     char keeper;
     for (int i = 0; i < size; i++) {
         cin >> keeper;
         vector[i] = keeper=='1';
+    }
+}
+
+// get_vector2 converts the string into bool array: thus it would be easy to process the vectors once we've extracted them from the file
+void get_vector2(bool* vector, string thestring, int size) {
+    for (int i = 0; i < size; i++) {
+        vector[i] = thestring[i]=='1';
     }
 }
 
