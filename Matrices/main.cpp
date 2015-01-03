@@ -15,17 +15,25 @@ struct vector{
 
 void print_vector(vector* A, int);
 void add_zheg(vector* A, vector* B, vector* C, int);
-void add_slc(vector* A, vector* m, int);
+void add_slc(vector* A, vector* m, vector*, int);
 void get_vector(vector* vector, int size);
 void get_vector2(vector* vector, string thestring, int size);
-
+void find_min(vector** vectors, vector* query, int num_vectors, int size);
+vector* compare(vector* v1, vector* v2, int size);
 
 int main(int argc, const char * argv[]) {
-    vector* vect = new vector;
+    vector* vect1 = new vector;
+    vector* vect2 = new vector;
+    vector* vect3 = new vector;
+    vector* query = new vector;
     
     //get_vector(vector,8);
-    get_vector2(vect, "a10101010", 8);
-    print_vector(vect,8);
+    get_vector2(query, "-11111100", 8);
+    get_vector2(vect1, "a10100101", 8);
+    get_vector2(vect2, "b01001011", 8);
+    get_vector2(vect3, "c10000000", 8);
+    vector* vects[3] = {vect1, vect2, vect3};
+    find_min(vects, query, 3, 8);
     /*
      Test case for the example given on page 14
     bool A[8] = {1, 0, 1, 0, 0, 1, 0, 1};
@@ -62,20 +70,22 @@ void get_vector2(vector* vector, string thestring, int size) {
 }
 
 //add_scl - performs simple xor operation on vectors A and m and shifts all 1's to the left
-void add_slc(vector* A, vector* m, int size) {
+void add_slc(vector* A, vector* m, vector* v, int size) {
     int count=0;
+    v->name = A->name;
     for (int i = 0; i < size; i++){
         if (A->bits[i]^m->bits[i]){
-            A->bits[count]=1;
+            v->bits[count]=1;
             count++;
         }
     }
     for (int i = count; i < size; i++) {
-        A->bits[i]=0;
+        v->bits[i]=0;
     }
 }
 //add_zheg - pefroms bitwise and operation on vectors A and B and then performs xor operation on the resulting vector and B
 void add_zheg(vector* A, vector* B, vector* C, int size){
+    C->name = A->name;
     for (int i = 0; i < size; i++) {
         C->bits[i]=(A->bits[i]&B->bits[i])^B->bits[i];
     }
@@ -92,13 +102,31 @@ void print_vector(vector* A, int size) {
 }
 
 void find_min(vector** vectors, vector* query, int num_vectors, int size){
-    vector* v1;
-    vector* v2;
-    for (int i = 0; i < num_vectors-1; i++) {
-        add_slc(vectors[i], query,size);
-        add_slc(vectors[i+1], query,size);
-        add_zheg(vectors[i],vectors[i+1], v1, size);
-        add_zheg(vectors[i+1], vectors[i], v2, size);
+    vector* best = vectors[0];
+    vector* v1, *v11, *v2, *v22;
+    v1 = new vector;
+    v2 = new vector;
+    v11 = new vector;
+    v22 = new vector;
+    for (int i = 1; i < num_vectors; i++) {
+        
+        add_slc(best, query, v1, size);
+        add_slc(vectors[i], query, v2, size);
+        add_zheg(v1,v2, v11, size);
+        add_zheg(v2, v1, v22, size);
+        best = compare(v11,v22, size);
     }
+    cout << best->name;
 }
 
+vector* compare(vector* v1, vector* v2, int size) {
+    for (int i = 0; i < size; i++) {
+        if (v1->bits[i]) {
+            return v2;
+        }
+        if (v2->bits[i]) {
+            return v1;
+        }
+    }
+    return v1; // in case they are equal
+}
