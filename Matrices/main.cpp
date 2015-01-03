@@ -15,8 +15,7 @@ struct vector{
 void print_vector(vector* A, int);
 void add_zheg(vector* A, vector* B, vector* C, int);
 void add_slc(vector* A, vector* m, vector*, int);
-void get_vector(vector* vector, int size);
-void get_vector2(vector* vector, string thestring, int size);
+void get_vector(vector* vector, string thestring, int size);
 vector* find_min(vector** vectors, vector* query, int num_vectors, int size);
 bool better(vector* v1, vector* v2, int size);
 
@@ -27,26 +26,18 @@ int main(int argc, const char * argv[]) {
     vector* query = new vector;
     
     //get_vector(vector,8);
-    get_vector2(query, "11111100", 8);
-    get_vector2(vect1, "10100101", 8);
-    get_vector2(vect2, "01001011", 8);
-    get_vector2(vect3, "10000000", 8);
+    get_vector(query, "11111100", 8);
+    get_vector(vect1, "10100101", 8);
+    get_vector(vect2, "01001011", 8);
+    get_vector(vect3, "10000000", 8);
     vector* vects[3] = {vect1, vect2, vect3};
     print_vector(find_min(vects, query, 3, 8),8);
 
 }
 
-//First version that allows the user to enter the vector manually
-void get_vector(vector* vector, int size){
-    char keeper;
-    for (int i = 0; i < size; i++) {
-        cin >> keeper;
-        vector->bits[i] = keeper=='1';
-    }
-}
 
 // get_vector2 converts the string into bool array: thus it would be easy to process the vectors once we've extracted them from the file
-void get_vector2(vector* vector, string thestring, int size) {
+void get_vector(vector* vector, string thestring, int size) {
     for (int i = 0; i < size; i++) {
         vector->bits[i] = thestring[i]=='1';
     }
