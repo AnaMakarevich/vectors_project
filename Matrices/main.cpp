@@ -17,7 +17,7 @@ void add_zheg(vector* A, vector* B, vector* C, int);
 void add_slc(vector* A, vector* m, vector*, int);
 void get_vector(vector* vector, int size);
 void get_vector2(vector* vector, string thestring, int size);
-void find_min(vector** vectors, vector* query, int num_vectors, int size);
+vector* find_min(vector** vectors, vector* query, int num_vectors, int size);
 bool better(vector* v1, vector* v2, int size);
 
 int main(int argc, const char * argv[]) {
@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
     get_vector2(vect2, "01001011", 8);
     get_vector2(vect3, "10000000", 8);
     vector* vects[3] = {vect1, vect2, vect3};
-    find_min(vects, query, 3, 8);
+    print_vector(find_min(vects, query, 3, 8),8);
 
 }
 
@@ -82,7 +82,7 @@ void print_vector(vector* A, int size) {
     cout << endl;
 }
 
-void find_min(vector** vectors, vector* query, int num_vectors, int size){
+vector* find_min(vector** vectors, vector* query, int num_vectors, int size){
     vector* best = vectors[0];
     vector* v1, *v11, *v2, *v22;
     v1 = new vector;
@@ -97,7 +97,7 @@ void find_min(vector** vectors, vector* query, int num_vectors, int size){
         add_zheg(v1, v2, v22, size);
         best = better(v11,v22, size)?vectors[i]:best;
     }
-    print_vector(best, 8);
+    return best;
 }
 
 bool better(vector* v1, vector* v2, int size) {
