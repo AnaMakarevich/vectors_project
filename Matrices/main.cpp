@@ -93,8 +93,8 @@ void find_min(vector** vectors, vector* query, int num_vectors, int size){
         
         add_slc(best, query, v1, size);
         add_slc(vectors[i], query, v2, size);
-        add_zheg(v1,v2, v11, size);
-        add_zheg(v2, v1, v22, size);
+        add_zheg(v2,v1, v11, size);
+        add_zheg(v1, v2, v22, size);
         best = better(v11,v22, size)?vectors[i]:best;
     }
     print_vector(best, 8);
